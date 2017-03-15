@@ -9,7 +9,7 @@ This repository show you golang examples which interacts with RabbitMQ queues an
 # Setting up this project locally
 
 > **Note:**
-The fastest way to get this application up and running locally is using **Docker** and **Docker Compose**.  Be sure that you have at least **Docker 1.13.0** and **Docker Compose 1.11.2** installed on your machine.
+The fastest way to get this application up and running locally is using **Docker**, **Docker Compose** and **Golang**.  Be sure that you have at least **Docker 1.13.0**, **Docker Compose 1.11.2** and **Golang 1.8** installed on your machine.
 
 1. Clone this repository
 ```shell
