@@ -1,0 +1,8 @@
+version: '1'
+services:
+  rabbitmq:
+    image: "rabbit:3-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "61613:61613"
