@@ -15,7 +15,7 @@ The fastest way to get this application up and running locally is using **Docker
 ```shell
 $ git clone https://github.com/godois/golang-rabbitmq.git
 ```
-2. Setup the dependencies (Cassandra, Redis, MySQL and RabbitMQ with STOMP support)
+2. Setup the dependencies (RabbitMQ)
 
 ```shell
 $ docker-compose -f docker-compose/dependencies.yml up
