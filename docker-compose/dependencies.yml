@@ -1,4 +1,4 @@
-version: '1'
+version: '3'
 services:
   rabbitmq:
     image: "rabbit:3-management"
