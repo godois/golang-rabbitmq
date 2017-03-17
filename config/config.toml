@@ -1,0 +1,4 @@
+[rabbitmq]
+rabbitmq_url = "amqp://guest:guest@192.168.56.102:5672/"
+rabbitmq_host = "192.168.56.10"
+rabbitmq_port = "5672"
