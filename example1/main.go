@@ -5,8 +5,13 @@ import (
 	"log"
 	"os"
 
+	"github.com/golang-rabbitmq/util"
 	"github.com/streadway/amqp"
 )
+
+func init() {
+	util.LoadConfig()
+}
 
 func failOnError1(err error, msg string) {
 	if err != nil {
