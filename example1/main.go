@@ -9,8 +9,28 @@ import (
 	"github.com/streadway/amqp"
 )
 
+var loadedURL string
+
 func init() {
 	util.LoadConfig()
+	loadedURL = util.C.GetString("rabbitmq.rabbitmq_url")
+}
+
+func main() {
+
+	if len(os.Args) > 1 {
+		arg := os.Args[1]
+
+		if arg == "send" {
+			send()
+		} else if arg == "receive" {
+			receive()
+		} else {
+			log.Print("[Golang-RabbitMQ - Error] - You need to inform a parameter executing this action (send/receive) ...")
+		}
+	} else {
+		log.Print("[Golang-RabbitMQ - Error] - You need to inform a parameter executing this action (send/receive) ...")
+	}
 }
 
 func failOnError1(err error, msg string) {
@@ -22,7 +42,7 @@ func failOnError1(err error, msg string) {
 
 func send() {
 
-	conn, err := amqp.Dial("amqp://guest:guest@192.168.56.102:5672/")
+	conn, err := amqp.Dial(loadedURL)
 	failOnError1(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
 
@@ -63,7 +83,7 @@ func failOnError(err error, msg string) {
 
 func receive() {
 
-	conn, err := amqp.Dial("amqp://guest:guest@192.168.56.102:5672/")
+	conn, err := amqp.Dial(loadedURL)
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
 
@@ -102,22 +122,4 @@ func receive() {
 
 	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
 	<-forever
-}
-
-func main() {
-
-	if len(os.Args) > 1 {
-		arg := os.Args[1]
-
-		if arg == "send" {
-			send()
-		} else if arg == "receive" {
-			receive()
-		} else {
-			fmt.Print("[Golang-RabbitMQ - Error] - You need to inform a parameter executing this action (send/receive) ...")
-		}
-	} else {
-		fmt.Print("[Golang-RabbitMQ - Error] - You need to inform a parameter executing this action (send/receive) ...")
-	}
-
 }
