@@ -43,11 +43,11 @@ func failOnError1(err error, msg string) {
 func send() {
 
 	conn, err := amqp.Dial(loadedURL)
-	failOnError1(err, "Failed to connect to RabbitMQ")
+	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
 
 	ch, err := conn.Channel()
-	failOnError1(err, "Failed to open a channel")
+	failOnError(err, "Failed to open a channel")
 	defer ch.Close()
 
 	q, err := ch.QueueDeclare(
@@ -58,7 +58,7 @@ func send() {
 		false,   // no-wait
 		nil,     // arguments
 	)
-	failOnError1(err, "Failed to declare a queue")
+	failOnError(err, "Failed to declare a queue")
 
 	body := "hello message"
 	err = ch.Publish(
@@ -70,7 +70,7 @@ func send() {
 			ContentType: "text/plain",
 			Body:        []byte(body),
 		})
-	failOnError1(err, "Failed to publish a message")
+	failOnError(err, "Failed to publish a message")
 
 }
 
