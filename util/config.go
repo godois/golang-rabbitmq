@@ -25,5 +25,5 @@ func LoadConfig() {
 	} else {
 		log.Print("[Golang-RabbitMQ - Info] - Configuration file has loaded SUCCESSFULY  ...")
 	}
-
+	
 }
