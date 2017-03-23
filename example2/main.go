@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/golang-rabbitmq/util"
+	"github.com/godois/golang-rabbitmq/util"
 	"github.com/streadway/amqp"
 )
 
