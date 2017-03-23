@@ -2,3 +2,12 @@
 rabbitmq_url = "amqp://guest:guest@192.168.56.102:5672/"
 rabbitmq_host = "192.168.56.10"
 rabbitmq_port = "5672"
+
+[messages]
+error_parameter="[Golang-RabbitMQ - ERROR] - You need to inform a parameter executing this action (send/receive)"
+error_connection="[Golang-RabbitMQ - ERROR] - Failed to connect to RabbitMQ"
+error_channel="[Golang-RabbitMQ - ERROR] - Failed to open a channel"
+error_queue="[Golang-RabbitMQ - ERROR] - Failed to declare a queue"
+error_message_publish="[Golang-RabbitMQ - ERROR] - Failed to publish a message"
+error_register_consumer="[Golang-RabbitMQ - ERROR] - Failed to register a consumer"
+info_receiving_message="[Golang-RabbitMQ - INFO] - [*] Waiting for messages. To exit press CTRL+C

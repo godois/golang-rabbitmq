@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
-
-	"github.com/golang-rabbitmq/util"
+	"github.com/godois/golang-rabbitmq/util"
 	"github.com/streadway/amqp"
 )
 
@@ -26,10 +25,10 @@ func main() {
 		} else if arg == "receive" {
 			receive()
 		} else {
-			log.Print("[Golang-RabbitMQ - Error] - You need to inform a parameter executing this action (send/receive) ...")
+			log.Print(util.C.GetString("messages.error_parameter"))
 		}
 	} else {
-		log.Print("[Golang-RabbitMQ - Error] - You need to inform a parameter executing this action (send/receive) ...")
+		log.Print(util.C.GetString("messages.error_parameter"))
 	}
 }
 
@@ -43,11 +42,11 @@ func failOnError1(err error, msg string) {
 func send() {
 
 	conn, err := amqp.Dial(loadedURL)
-	failOnError(err, "Failed to connect to RabbitMQ")
+	failOnError(err, util.C.GetString("messages.error_connection"))
 	defer conn.Close()
 
 	ch, err := conn.Channel()
-	failOnError(err, "Failed to open a channel")
+	failOnError(err, util.C.GetString("messages.error_channel"))
 	defer ch.Close()
 
 	q, err := ch.QueueDeclare(
@@ -58,7 +57,7 @@ func send() {
 		false,   // no-wait
 		nil,     // arguments
 	)
-	failOnError(err, "Failed to declare a queue")
+	failOnError(err, util.C.GetString("messages.error_queue"))
 
 	body := "hello message"
 	err = ch.Publish(
@@ -70,7 +69,7 @@ func send() {
 			ContentType: "text/plain",
 			Body:        []byte(body),
 		})
-	failOnError(err, "Failed to publish a message")
+	failOnError(err, util.C.GetString("messages.error_message_publish"))
 
 }
 
@@ -84,11 +83,11 @@ func failOnError(err error, msg string) {
 func receive() {
 
 	conn, err := amqp.Dial(loadedURL)
-	failOnError(err, "Failed to connect to RabbitMQ")
+	failOnError(err, util.C.GetString("messages.error_connection"))
 	defer conn.Close()
 
 	ch, err := conn.Channel()
-	failOnError(err, "Failed to open a channel")
+	failOnError(err, util.C.GetString("messages.error_channel"))
 	defer ch.Close()
 
 	q, err := ch.QueueDeclare(
@@ -99,7 +98,7 @@ func receive() {
 		false,   // no-wait
 		nil,     // arguments
 	)
-	failOnError(err, "Failed to declare a queue")
+	failOnError(err, util.C.GetString("messages.error_queue"))
 
 	msgs, err := ch.Consume(
 		q.Name, // queue
@@ -110,7 +109,7 @@ func receive() {
 		false,  // no-wait
 		nil,    // args
 	)
-	failOnError(err, "Failed to register a consumer")
+	failOnError(err, util.C.GetString("messages.error_register_consumer"))
 
 	forever := make(chan bool)
 
@@ -120,6 +119,6 @@ func receive() {
 		}
 	}()
 
-	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
+	log.Printf(util.C.GetString("messages.info_receiving_message"))
 	<-forever
 }
