@@ -4,5 +4,5 @@ services:
     image: "rabbitmq:3-management"
     ports:
       - "5672:5672"
-      - "15672:15672"
+      - "8080:15672"
       - "61613:61613"
